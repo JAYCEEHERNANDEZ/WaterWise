@@ -5,7 +5,7 @@ import { kpiData } from "../data/analyticsData";
 
 describe("KpiCard Data Driven Testing", () => {
   it.each(kpiData)(
-    "should display all KPI cards: $title",
+    "should display title, metric value and subtitle for overall, monthly, yearly, and per purok consumption KPI cards: $title",
     ({ title, value, subtitle }) => {
       // Arrange
       render(
