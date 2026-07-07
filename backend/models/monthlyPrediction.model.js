@@ -14,12 +14,13 @@ export const getMonthlyPrediction = () => {
   });
 
   const monthlyData = Object.entries(monthlyTotals)
-    .sort(([a], [b]) => a.localeCompare(b))
-    .map(([month, consumption]) => ({
-      month,
-      consumption,
-      predicted: false,
-    }));
+  .sort(([a], [b]) => a.localeCompare(b))
+  .map(([month, consumption]) => ({
+    month,
+    consumption,
+    predicted: false,
+  }))
+  .slice(-5); // Keep only the latest 5 historical months
 
   monthlyData.push({
     month: overallPrediction.monthly.predictedMonth.slice(0, 7),

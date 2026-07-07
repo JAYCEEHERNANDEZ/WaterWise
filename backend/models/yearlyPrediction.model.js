@@ -14,12 +14,13 @@ export const getYearlyPrediction = () => {
   });
 
   const yearlyData = Object.entries(yearlyTotals)
-    .sort(([a], [b]) => a.localeCompare(b))
-    .map(([year, consumption]) => ({
-      year: Number(year),
-      consumption,
-      predicted: false,
-    }));
+  .sort(([a], [b]) => a.localeCompare(b))
+  .map(([year, consumption]) => ({
+    year: Number(year),
+    consumption,
+    predicted: false,
+  }))
+  .slice(-5); // Keep only the latest 5 historical years;
 
   yearlyData.push({
     year: Number(overallPrediction.yearly.predictedYear),
