@@ -1,11 +1,11 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
-vi.mock("../../models/monthlyPrediction.model.js", () => ({
+vi.mock("../models/monthlyPrediction.model.js", () => ({
   getMonthlyPrediction: vi.fn(),
 }));
 
-import * as monthlyPredictionModel from "../../models/monthlyPrediction.model.js";
-import { generateMonthlyPrediction } from "../../services/monthlyPrediction.service.js";
+import * as monthlyPredictionModel from "../models/monthlyPrediction.model.js";
+import { generateMonthlyPrediction } from "../services/monthlyPrediction.service.js";
 
 describe("Monthly Prediction Service", () => {
 

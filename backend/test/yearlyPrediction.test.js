@@ -1,11 +1,11 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
-vi.mock("../../models/yearlyPrediction.model.js", () => ({
+vi.mock("../models/yearlyPrediction.model.js", () => ({
   getYearlyPrediction: vi.fn(),
 }));
 
-import * as yearlyPredictionModel from "../../models/yearlyPrediction.model.js";
-import { generateYearlyPrediction } from "../../services/yearlyPrediction.service.js";
+import * as yearlyPredictionModel from "../models/yearlyPrediction.model.js";
+import { generateYearlyPrediction } from "../services/yearlyPrediction.service.js";
 
 describe("Yearly Prediction Service", () => {
 
