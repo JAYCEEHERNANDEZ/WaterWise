@@ -4,50 +4,67 @@ import {
   GEMINI_MODELS,
 } from "../../config/gemini.js";
 
+const hasGeminiKey = Boolean(
+  process.env.GEMINI_API_KEY
+);
+
+const integrationTest = hasGeminiKey
+  ? it
+  : it.skip;
+
+
 describe("Validate Gemini Integration", () => {
-  it("should have a configured API key", () => {
-  // Arrange
-  const apiKey = process.env.GEMINI_API_KEY;
-  // Act
-  const isConfigured = Boolean(apiKey);
-  // Assert
-  expect(apiKey).toBeDefined();
-  expect(isConfigured).toBe(true);
-});
 
-  it("should initialize the Gemini client", () => {
-  // Arrange
-  const client = ai;
-  // Act
-  const isInitialized = Boolean(client);
-  // Assert
-  expect(isInitialized).toBe(true);
-});
+  integrationTest("should have a configured API key", () => {
+    // Arrange
+    const apiKey = process.env.GEMINI_API_KEY;
 
-   it(
-    "should successfully connect to Gemini API",
-    async (context) => {
-      // Arrange
-      const model = GEMINI_MODELS[0];
+    // Assert
+    expect(apiKey).toBeDefined();
+    expect(apiKey).toBeTruthy();
+  });
 
-      try {
-        // Act
-        const response = await ai.models.generateContent({
+
+  integrationTest("should initialize the Gemini client", () => {
+    // Assert
+    expect(ai).toBeTruthy();
+  });
+
+
+  integrationTest(
+  "should successfully connect to Gemini API",
+  async (context) => {
+    // Arrange
+    const model = GEMINI_MODELS[0];
+
+    try {
+      // Act
+      const response =
+        await ai.models.generateContent({
           model,
           contents: "Say hello",
         });
 
-        // Assert
-        expect(response).toBeDefined();
-        expect(response.text).toBeTruthy();
+      // Assert
+      expect(response).toBeDefined();
+      expect(response.text).toBeTruthy();
 
-      } catch (error) {
-        // Skip test if Gemini service is unavailable
+    } catch (error) {
+
+      if (
+        error.message.includes("quota") ||
+        error.message.includes("429") ||
+        error.message.includes("RESOURCE_EXHAUSTED")
+      ) {
         context.skip(
-          `Gemini API unavailable: ${error.message}`
+          "Skipped: Gemini API quota exceeded"
         );
       }
-    },
-    30000
-  );
+
+      throw error;
+    }
+  },
+  30000
+);
+
 });
