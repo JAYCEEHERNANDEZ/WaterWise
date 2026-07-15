@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeEach } from 'vitest';
 import request from 'supertest';
 import express from 'express';
-import notificationRouter from '../routes/notificationRoutes.js';
+import notificationRouter from '../../routes/notificationRoutes.js';
 
 const app = express();
 app.use(express.json());
