@@ -7,7 +7,7 @@ import BillingLedger from "./pages/BillingLedger";
 import ConsumerProfile from "./pages/ConsumerProfile";
 import Login from "./pages/Login";
 import UsageMetrics from "./pages/UsageMetrics";
-import AnalyticsDashboard from "./pages/AnalyticsDashboard";
+import AnalyticsDashboard from "./pages/analyticsDashboard";
 
 const portalRoutes = [
   { label: "Dashboard", path: "/admin/dashboard" },
