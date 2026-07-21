@@ -1,6 +1,5 @@
 // backend/models/consumption.model.js
 import { supabase } from "../config/supabase.js";
-import { consumptionData } from "../data/consumptionData.js";
 
 const MONTHS = [
   "january",
@@ -27,34 +26,6 @@ const formatPurok = (purokNo) => {
 
 // Common consumption query
 const fetchConsumptionRecords = async () => {
-  const isTestRuntime =
-    process.env.NODE_ENV === "test" ||
-    process.env.WATERWISE_E2E === "true" ||
-    process.env.WATERWISE_E2E === "1";
-
-
-  /*
-   * Playwright / Vitest runtime
-   * Use in-memory fixture instead of Supabase
-   */
-  if (isTestRuntime) {
-    return consumptionData.map((record) => ({
-      ...record,
-      consumers: {
-        id: record.consumer_id,
-        full_name:
-          record.full_name ?? "Test Consumer",
-        purok_no:
-          record.purok_no ?? 1,
-      },
-    }));
-  }
-
-
-  /*
-   * Production runtime
-   * Use Supabase
-   */
   const { data, error } = await supabase
     .from("consumption")
     .select(`
@@ -74,13 +45,11 @@ const fetchConsumptionRecords = async () => {
       ascending: true,
     });
 
-
   if (error) {
     throw new Error(
       `Failed to retrieve consumption records: ${error.message}`
     );
   }
-
 
   return data ?? [];
 };
