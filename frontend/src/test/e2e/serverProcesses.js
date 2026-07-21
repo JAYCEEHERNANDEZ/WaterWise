@@ -9,6 +9,10 @@ const frontendDirectory = path.resolve(e2eDirectory, "../../..");
 const backendDirectory = path.resolve(frontendDirectory, "../backend");
 
 const processFile = path.join(e2eDirectory, ".server-processes.json");
+const frontendUrl =
+  process.env.BASE_URL ||
+  `http://127.0.0.1:${process.env.E2E_FRONTEND_PORT || "5173"}`;
+const frontendPort = new URL(frontendUrl).port || "5173";
 
 const servers = [
   {
@@ -31,13 +35,13 @@ const servers = [
       "--host",
       "127.0.0.1",
       "--port",
-      "5174",
+      frontendPort,
       "--strictPort",
     ],
     env: {
       WATERWISE_API_TARGET: "http://127.0.0.1:5001",
     },
-    healthUrl: "http://127.0.0.1:5174",
+    healthUrl: frontendUrl,
   },
 ];
 

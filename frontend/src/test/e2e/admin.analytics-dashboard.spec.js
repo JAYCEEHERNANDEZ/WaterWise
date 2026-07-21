@@ -32,29 +32,20 @@ test.describe("Admin Analytics Dashboard end-to-end journey", () => {
       }),
     ).toBeVisible();
 
-    await page.getByLabel("Email or username").fill("admin_tester");
+    await page.getByLabel("Email or username").fill("admin@gmail.com");
 
     await page
       .getByLabel("Password", {
         exact: true,
       })
-      .fill("testpass123");
+      .fill("admin123");
 
     await page
-  .getByRole("button", {
-    name: "Sign in",
-    exact: true,
-  })
-  .click();
-
-
-await page.waitForTimeout(3000);
-
-
-console.log(
-  "CURRENT URL:",
-  page.url()
-);
+      .getByRole("button", {
+        name: "Sign in",
+        exact: true,
+      })
+      .click();
     /*
     ========================
     ADMIN DASHBOARD

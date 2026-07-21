@@ -1,6 +1,9 @@
 import { defineConfig, devices } from "@playwright/test";
 import process from "node:process";
 
+const frontendPort = process.env.E2E_FRONTEND_PORT || "5173";
+const frontendUrl = process.env.BASE_URL || `http://127.0.0.1:${frontendPort}`;
+
 export default defineConfig({
 
   testDir: "./src/test/e2e",
@@ -23,7 +26,7 @@ export default defineConfig({
   ],
 
   use: {
-    baseURL: process.env.BASE_URL || "http://localhost:5174",
+    baseURL: frontendUrl,
 
     screenshot: "only-on-failure",
 
