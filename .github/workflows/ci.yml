@@ -123,6 +123,7 @@ jobs:
         run: npm run test:e2e
         env:
           CI: true
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
 
       - name: Upload Playwright HTML report
         if: always()
